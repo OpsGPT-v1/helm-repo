@@ -1,7 +1,6 @@
 global:
   environment: dev
   namespace: dev
-
 services:
   frontend-service:
     replicas: 2
@@ -27,7 +26,7 @@ services:
   ai-analysis-service:
     replicas: 2
     image:
-      tag: dev
+      tag: ebedeb9b4db3ad0a4d0ea65c91a70ae0e7575dfa
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
