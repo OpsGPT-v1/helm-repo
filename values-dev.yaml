@@ -12,7 +12,7 @@ services:
   core-api-service:
     replicas: 2
     image:
-      tag: bbdaa1c815a7713468790fb650f3d7c16d46a1bb
+      tag: eb9e105f38f7321c5610fd1ba8c40bb406c45f07
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
