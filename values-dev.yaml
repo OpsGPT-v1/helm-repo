@@ -33,7 +33,7 @@ services:
   notification-service:
     replicas: 2
     image:
-      tag: dev
+      tag: 732cd8fc801003dcf083e9c56d67511319e6d23a
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
