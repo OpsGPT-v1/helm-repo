@@ -1,0 +1,24 @@
+OpsGPT has been successfully deployed to AKS!
+
+Deployment Details:
+- Namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+- Environment: {{ .Values.global.environment }}
+- Ingress Enabled: {{ .Values.ingress.enabled }}
+- Key Vault CSI Integration: Enabled for microservice backends
+
+Monitor Pods:
+  kubectl get pods -n {{ .Values.global.namespace | default .Release.Namespace }} -l app.kubernetes.io/part-of=opsgpt
+
+Monitor Ingress Routing (AGIC):
+  kubectl get ingress -n {{ .Values.global.namespace | default .Release.Namespace }}
+
+Check Workload Identity ServiceAccounts:
+  kubectl get sa -n {{ .Values.global.namespace | default .Release.Namespace }}
+
+Check SecretProviderClass Configurations:
+  kubectl get secretproviderclass -n {{ .Values.global.namespace | default .Release.Namespace }}
+
+Important Notice:
+- This deployment depends on Azure Workload Identity and Secrets Store CSI Driver to authenticate and mount Key Vault secrets securely.
+- Ensure that the Azure Key Vault "<KEY_VAULT_NAME>" exists and that the respective Client IDs are granted access policies to get/list secrets.
+- Health Proes compatibility: Verify that your containers expose '/healthz' and '/ready' or customize values.yaml accordingly.

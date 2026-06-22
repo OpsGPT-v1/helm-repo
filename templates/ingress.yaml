@@ -1,0 +1,66 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+  labels:
+    app.kubernetes.io/part-of: opsgpt
+    environment: {{ .Values.global.environment }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host | default "opsgpt.local" | quote }}
+      secretName: {{ .Values.ingress.tls.secretName | quote }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.host | default "" | quote }}
+      http:
+        paths:
+          - path: /api/core
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-core-api-service
+                port:
+                  number: 8001
+          - path: /api/alerts
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-alert-ingestion-service
+                port:
+                  number: 8002
+          - path: /api/analysis
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-ai-analysis-service
+                port:
+                  number: 8003
+          - path: /api/notifications
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-notification-service
+                port:
+                  number: 8004
+          - path: /alerts/webhook
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-alert-ingestion-service
+                port:
+                  number: 8002
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-frontend-service
+                port:
+                  number: 3000
+{{- end }}

@@ -1,0 +1,40 @@
+global:
+  environment: prod
+  namespace: prod
+
+services:
+  frontend-service:
+    replicas: 3
+    image:
+      tag: prod
+    autoscaling:
+      minReplicas: 3
+      maxReplicas: 10
+  core-api-service:
+    replicas: 3
+    image:
+      tag: prod
+    autoscaling:
+      minReplicas: 3
+      maxReplicas: 10
+  alert-ingestion-service:
+    replicas: 3
+    image:
+      tag: prod
+    autoscaling:
+      minReplicas: 3
+      maxReplicas: 10
+  ai-analysis-service:
+    replicas: 3
+    image:
+      tag: prod
+    autoscaling:
+      minReplicas: 3
+      maxReplicas: 10
+  notification-service:
+    replicas: 3
+    image:
+      tag: prod
+    autoscaling:
+      minReplicas: 3
+      maxReplicas: 10

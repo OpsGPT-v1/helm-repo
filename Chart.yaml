@@ -1,0 +1,6 @@
+apiVersion: v2
+name: opsgpt
+description: Helm chart for OpsGPT microservices on Azure AKS
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

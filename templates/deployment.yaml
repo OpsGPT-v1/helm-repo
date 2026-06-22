@@ -1,0 +1,85 @@
+{{- range $serviceName, $service := .Values.services }}
+{{- if $service.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-{{ $service.name }}
+  namespace: {{ $.Values.global.namespace | default $.Release.Namespace }}
+  labels:
+    app: {{ $service.name }}
+    app.kubernetes.io/name: {{ $service.name }}
+    app.kubernetes.io/component: {{ $service.component }}
+    app.kubernetes.io/part-of: opsgpt
+    environment: {{ $.Values.global.environment }}
+spec:
+  replicas: {{ $service.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $service.name }}
+      environment: {{ $.Values.global.environment }}
+  template:
+    metadata:
+      labels:
+        app: {{ $service.name }}
+        app.kubernetes.io/name: {{ $service.name }}
+        app.kubernetes.io/component: {{ $service.component }}
+        app.kubernetes.io/part-of: opsgpt
+        environment: {{ $.Values.global.environment }}
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: {{ $.Release.Name }}-{{ $service.name }}-sa
+      containers:
+        - name: {{ $service.name }}
+          image: "{{ $.Values.global.registry }}/{{ $service.image.repository }}:{{ $service.image.tag }}"
+          imagePullPolicy: {{ $.Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: {{ $service.port }}
+              name: http
+          livenessProbe:
+            httpGet:
+              path: {{ $service.probes.livenessPath }}
+              port: {{ $service.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: {{ $service.probes.readinessPath }}
+              port: {{ $service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources:
+            {{- toYaml $service.resources | nindent 12 }}
+          {{- if or $service.env $service.keyvault.enabled }}
+          env:
+            {{- range $k, $v := $service.env }}
+            - name: {{ $k }}
+              value: {{ $v | quote }}
+            {{- end }}
+            {{- if $service.keyvault.enabled }}
+            {{- range $secret := $service.keyvault.secrets }}
+            - name: {{ $secret.alias }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Release.Name }}-{{ $service.name }}-secret
+                  key: {{ $secret.alias }}
+            {{- end }}
+            {{- end }}
+          {{- end }}
+          {{- if $service.keyvault.enabled }}
+          volumeMounts:
+            - name: secrets-mount
+              mountPath: /mnt/secrets-store
+              readOnly: true
+          {{- end }}
+      {{- if $service.keyvault.enabled }}
+      volumes:
+        - name: secrets-mount
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ $.Release.Name }}-{{ $service.name }}-spc
+      {{- end }}
+---
+{{- end }}
+{{- end }}

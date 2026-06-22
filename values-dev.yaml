@@ -1,0 +1,40 @@
+global:
+  environment: dev
+  namespace: dev
+
+services:
+  frontend-service:
+    replicas: 2
+    image:
+      tag: dev
+    autoscaling:
+      minReplicas: 2
+      maxReplicas: 4
+  core-api-service:
+    replicas: 2
+    image:
+      tag: dev
+    autoscaling:
+      minReplicas: 2
+      maxReplicas: 4
+  alert-ingestion-service:
+    replicas: 2
+    image:
+      tag: dev
+    autoscaling:
+      minReplicas: 2
+      maxReplicas: 4
+  ai-analysis-service:
+    replicas: 2
+    image:
+      tag: dev
+    autoscaling:
+      minReplicas: 2
+      maxReplicas: 4
+  notification-service:
+    replicas: 2
+    image:
+      tag: dev
+    autoscaling:
+      minReplicas: 2
+      maxReplicas: 4
