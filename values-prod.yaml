@@ -19,7 +19,7 @@ services:
   alert-ingestion-service:
     replicas: 3
     image:
-      tag: prod
+      tag: alert-ingestion-service-v2.1.2
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
