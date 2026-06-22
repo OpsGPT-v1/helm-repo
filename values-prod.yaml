@@ -5,7 +5,7 @@ services:
   frontend-service:
     replicas: 3
     image:
-      tag: prod
+      tag: frontend-service-v2.1.2
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
