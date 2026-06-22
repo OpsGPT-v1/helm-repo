@@ -5,7 +5,7 @@ services:
   frontend-service:
     replicas: 2
     image:
-      tag: dev
+      tag: b0ab5a9750541128b1e0c9b640e60d335aef184d
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
