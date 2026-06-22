@@ -1,7 +1,6 @@
 global:
   environment: prod
   namespace: prod
-
 services:
   frontend-service:
     replicas: 3
@@ -27,7 +26,7 @@ services:
   ai-analysis-service:
     replicas: 3
     image:
-      tag: prod
+      tag: ai-analysis-service-v2.1.2
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
