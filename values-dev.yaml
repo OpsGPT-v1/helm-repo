@@ -26,7 +26,7 @@ services:
   ai-analysis-service:
     replicas: 2
     image:
-      tag: c7f2d010455c567d4d6299e1520c85972fdb19b8
+      tag: 161d0ab073170f434c45996cc5560069cce7af42
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
