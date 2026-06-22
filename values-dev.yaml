@@ -19,7 +19,7 @@ services:
   alert-ingestion-service:
     replicas: 2
     image:
-      tag: 465bca4d059fde7106b1bce92672677d0c233870
+      tag: 4e7ce2e23c70e30f2d8963687cd4eecf290f955e
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
