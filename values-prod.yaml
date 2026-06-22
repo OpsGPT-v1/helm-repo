@@ -33,7 +33,7 @@ services:
   notification-service:
     replicas: 3
     image:
-      tag: prod
+      tag: notification-service-v2.1.2
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
