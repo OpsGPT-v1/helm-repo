@@ -16,6 +16,14 @@ services:
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
+    keyvault:
+      secrets:
+        - name: "dev-database-url"
+          alias: "DATABASE_URL"
+        - name: "dev-jwt-secret-key"
+          alias: "JWT_SECRET_KEY"
+        - name: "dev-internal-api-key"
+          alias: "INTERNAL_API_KEY"
   alert-ingestion-service:
     replicas: 2
     image:
@@ -23,6 +31,12 @@ services:
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
+    keyvault:
+      secrets:
+        - name: "dev-database-url"
+          alias: "DATABASE_URL"
+        - name: "dev-internal-api-key"
+          alias: "INTERNAL_API_KEY"
   ai-analysis-service:
     replicas: 2
     image:
@@ -30,6 +44,14 @@ services:
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
+    keyvault:
+      secrets:
+        - name: "dev-database-url"
+          alias: "DATABASE_URL"
+        - name: "dev-internal-api-key"
+          alias: "INTERNAL_API_KEY"
+        - name: "dev-azure-foundry-api-key"
+          alias: "AZURE_FOUNDRY_API_KEY"
   notification-service:
     replicas: 2
     image:
@@ -37,3 +59,9 @@ services:
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
+    keyvault:
+      secrets:
+        - name: "dev-database-url"
+          alias: "DATABASE_URL"
+        - name: "dev-slack-webhook-url"
+          alias: "SLACK_WEBHOOK_URL"
