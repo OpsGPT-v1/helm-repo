@@ -12,7 +12,7 @@ services:
   core-api-service:
     replicas: 3
     image:
-      tag: core-api-service-v2.1.2
+      tag: 940d1547d1f088c74709be035e1c82ba7e49c679
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
@@ -27,7 +27,7 @@ services:
   alert-ingestion-service:
     replicas: 3
     image:
-      tag: alert-ingestion-service-v2.1.2
+      tag: fc0e90bd6d8c6b96b7bf970232738533163cee22
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
@@ -40,7 +40,7 @@ services:
   ai-analysis-service:
     replicas: 3
     image:
-      tag: ai-analysis-service-v2.1.2
+      tag: 3020779866edabfe64e8be120f920c79c0a215b2
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
@@ -55,7 +55,7 @@ services:
   notification-service:
     replicas: 3
     image:
-      tag: notification-service-v2.1.2
+      tag: 5604d87c367f6fe45ef8a9425c0cf68fd66a3e54
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
