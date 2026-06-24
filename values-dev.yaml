@@ -55,7 +55,7 @@ services:
   notification-service:
     replicas: 2
     image:
-      tag: 5604d87c367f6fe45ef8a9425c0cf68fd66a3e54
+      tag: c470af9c1eff24bc6b30484e01ed2c70a0f04a33
     autoscaling:
       minReplicas: 2
       maxReplicas: 4
