@@ -227,7 +227,7 @@ services:
         - name: "slack-webhook-url"
           alias: "SLACK_WEBHOOK_URL"
     env:
-      NOTIFICATION_CHANNEL: "console"
+      NOTIFICATION_CHANNEL: "slack"
       NOTIFICATION_RETRY_COUNT: "3"
       NOTIFICATION_TIMEOUT_SECONDS: "10"
       APP_ENV: "development"
