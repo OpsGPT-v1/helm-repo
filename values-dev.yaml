@@ -65,3 +65,6 @@ services:
           alias: "DATABASE_URL"
         - name: "dev-slack-webhook-url"
           alias: "SLACK_WEBHOOK_URL"
+
+ingress:
+  host: "dev.aasikdevops.website"
