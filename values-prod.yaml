@@ -40,7 +40,7 @@ services:
   ai-analysis-service:
     replicas: 3
     image:
-      tag: 3020779866edabfe64e8be120f920c79c0a215b2
+      tag: ai-analysis-service-v2.1.3
     autoscaling:
       minReplicas: 3
       maxReplicas: 10
